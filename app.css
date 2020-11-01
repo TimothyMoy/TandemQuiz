@@ -47,7 +47,7 @@ h1 {
   transition: transform 150ms;
 }
 
-.btn[:disabled]:hover{
+.btn[disabled]:hover{
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
