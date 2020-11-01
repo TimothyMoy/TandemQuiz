@@ -31,3 +31,26 @@
 .incorrect {
   background-color: red
 }
+
+/* HUD */
+
+#hud {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+#hud-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.hud-title {
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.hud-text{
+  text-align: center;
+  margin-left: 1rem;
+}

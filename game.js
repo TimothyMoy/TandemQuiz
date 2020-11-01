@@ -1,6 +1,7 @@
 const question = document.getElementById('question');
 const choices = Array.from(document.getElementsByClassName('choice-text'));
-
+const questionCounterText = document.getElementById('questionCounter');
+const scoreText = document.getElementById('score')
 
 let currentQuestion = {}
 let acceptingAnswers = false;
@@ -14,6 +15,16 @@ let questions = [
   "incorrect": ["Tandem", "Burger Shack", "Extraordinary Humans"],
   "correct": "Devmynd"
 },
+{
+  "question": "In Shakespeare's play Julius Caesar, Caesar's last words were...",
+  "incorrect": ["Iacta alea est!", "Vidi, vini, vici", "Aegri somnia vana"],
+  "correct": "Et tu, Brute?"
+},
+{
+  "question": "A group of tigers are referred to as:",
+  "incorrect": ["Chowder", "Pride", "Destruction"],
+  "correct": "Ambush"
+}
 ];
 
 
@@ -22,7 +33,7 @@ let questions = [
 //Constants
 
 const Correct_Bonus = 1;
-const Max_Questions = 1;
+const Max_Questions = 10;
 
 startGame = () => {
   questionCounter = 0;
@@ -34,10 +45,13 @@ startGame = () => {
 getNewQuestion = () => {
 
   if(availableQuestions.length === 0 || questionCounter >= Max_Questions) {
-    return window.location.assign("/end.html")
+    localStorage.setItem('mostRecentScore', score);
+    return window.location.assign("end.html")
   }
 
   questionCounter ++
+  questionCounterText.innerText = questionCounter + "/" + Max_Questions;
+
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   question.innerText = currentQuestion.question;
@@ -60,17 +74,15 @@ choices.forEach(choice => {
 
     acceptingAnswers = false;
     const selectedChoice = e.target;
-    const selectedAnswer = selectedChoice.dataset["number"];
-    console.log(selectedAnswer);
-    console.log(selectedChoice.innerText);
 
 
     let classToApply = 'incorrect';
       if(selectedChoice.innerText == currentQuestion.correct) {
         classToApply = 'correct';
       }
-    
-      console.log(classToApply)
+    if (classToApply === 'correct') {
+      incrementScore(Correct_Bonus)
+    }
       selectedChoice.parentElement.classList.add(classToApply)
 
     setTimeout (() => {
@@ -80,4 +92,12 @@ choices.forEach(choice => {
   });
 });
 
+incrementScore = num => {
+  score += num;
+  scoreText.innerText = score;
+}
+
 startGame();
+
+
+
