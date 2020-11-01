@@ -28,7 +28,6 @@ startGame = () => {
   questionCounter = 0;
   score = 0;
   availableQuestions = [...questions];
-  console.log(availableQuestions);
   getNewQuestion();
 }
 
@@ -44,9 +43,7 @@ getNewQuestion = () => {
   question.innerText = currentQuestion.question;
 
   let newChoices = []
-  newChoices.push(currentQuestion.incorrect[0],currentQuestion.incorrect[1],currentQuestion.incorrect[2])
-  newChoices.push(currentQuestion.correct)
-  console.log(newChoices)
+  newChoices.push(currentQuestion.incorrect[0],currentQuestion.incorrect[1],currentQuestion.incorrect[2],currentQuestion.correct)
 
   choices.forEach( choice => {
     const number = choice.dataset['number'];
@@ -58,14 +55,28 @@ getNewQuestion = () => {
 };
 
 choices.forEach(choice => {
-  choice.addEventListener('click', event => {
-    if(!acceptingAnswers) return;
+  choice.addEventListener('click', e => {
+    if (!acceptingAnswers) return;
 
     acceptingAnswers = false;
-    const selectedChoice = event.target;
+    const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
     console.log(selectedAnswer);
-    getNewQuestion();
+    console.log(selectedChoice.innerText);
+
+
+    let classToApply = 'incorrect';
+      if(selectedChoice.innerText == currentQuestion.correct) {
+        classToApply = 'correct';
+      }
+    
+      console.log(classToApply)
+      selectedChoice.parentElement.classList.add(classToApply)
+
+    setTimeout (() => {
+      selectedChoice.parentElement.classList.remove(classToApply)
+      getNewQuestion(); 
+    }, 1000);
   });
 });
 
