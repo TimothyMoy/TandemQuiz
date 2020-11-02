@@ -9,25 +9,18 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions=[];
 
-let questions = [
-  {
-  "question": "What was Tandem previous name?",
-  "incorrect": ["Tandem", "Burger Shack", "Extraordinary Humans"],
-  "correct": "Devmynd"
-},
-{
-  "question": "In Shakespeare's play Julius Caesar, Caesar's last words were...",
-  "incorrect": ["Iacta alea est!", "Vidi, vini, vici", "Aegri somnia vana"],
-  "correct": "Et tu, Brute?"
-},
-{
-  "question": "A group of tigers are referred to as:",
-  "incorrect": ["Chowder", "Pride", "Destruction"],
-  "correct": "Ambush"
-}
-];
+let questions = [];
 
 
+fetch("scripts/Apprentice_TandemFor400_Data.json")
+.then(res => res.json())
+  .then(loadedQuestions => {
+    questions = loadedQuestions;
+    startGame();
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 
 //Constants
@@ -46,7 +39,7 @@ getNewQuestion = () => {
 
   if(availableQuestions.length === 0 || questionCounter >= Max_Questions) {
     localStorage.setItem('mostRecentScore', score);
-    return window.location.assign("end.html")
+    return window.location.assign("/end")
   }
 
   questionCounter ++
@@ -97,7 +90,7 @@ incrementScore = num => {
   scoreText.innerText = score;
 }
 
-startGame();
+
 
 
 

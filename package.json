@@ -1,0 +1,26 @@
+{
+  "name": "tandem_apprentice_challenge_2020",
+  "version": "1.0.0",
+  "description": "Tandem quiz app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimothyMoy/TandemQuiz.git"
+  },
+  "author": "Timothy Moy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimothyMoy/TandemQuiz/issues"
+  },
+  "homepage": "https://github.com/TimothyMoy/TandemQuiz#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6"
+  }
+}
