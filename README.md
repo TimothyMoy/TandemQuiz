@@ -11,14 +11,18 @@ I used HTML,CSS, Javascript, Node.js.
 ### Link to the App/ How to Run the Code
 https://tandemquiz.herokuapp.com/
 
- **Assumptions**
+### Bugs
+The answers are only accepted when you click within the text area of your answer choice. It would be a better experience if you could click on the answer block instead.
+
+
+* **Assumptions**
 1. A round of trivia has 10 Questions
 2. All questions are multiple-choice questions
 3. Your score does not need to update in real time
 4. Results can update on form submit, button click, or any interaction you choose
 5. We will provide you with the trivia data such as the questions, correct and incorrect answers via a JSON file.
 
- **Acceptance Criteria**
+* **Acceptance Criteria**
 1. A user can view questions.
 2. Questions with their multiple choice options must be displayed one at a time. 
 3. Questions should not repeat in a round.
