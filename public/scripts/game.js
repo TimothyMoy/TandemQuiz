@@ -11,11 +11,24 @@ let availableQuestions=[];
 
 let questions = [];
 
-
 fetch("scripts/Apprentice_TandemFor400_Data.json")
 .then(res => res.json())
   .then(loadedQuestions => {
-    questions = loadedQuestions;
+    console.log(loadedQuestions)
+    questions = loadedQuestions.map(loadedQuestions => {
+      const formattedQuestion = {
+        question: loadedQuestions.question
+    }
+      const answerChoices = [ ...loadedQuestions.incorrect];
+      formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
+      answerChoices.splice(formattedQuestion.answer -1, 0,loadedQuestions.correct);
+
+      answerChoices.forEach((choice, index) => {
+        formattedQuestion["choice" + (index+1)] = choice;
+      })
+
+      return formattedQuestion
+    })
     startGame();
   })
   .catch(err => {
@@ -49,12 +62,9 @@ getNewQuestion = () => {
   currentQuestion = availableQuestions[questionIndex];
   question.innerText = currentQuestion.question;
 
-  let newChoices = []
-  newChoices.push(currentQuestion.incorrect[0],currentQuestion.incorrect[1],currentQuestion.incorrect[2],currentQuestion.correct)
-
   choices.forEach( choice => {
     const number = choice.dataset['number'];
-    choice.innerText = newChoices[number];
+    choice.innerText = currentQuestion['choice' + number];
   })
 
   availableQuestions.splice(questionIndex, 1);
@@ -67,15 +77,29 @@ choices.forEach(choice => {
 
     acceptingAnswers = false;
     const selectedChoice = e.target;
-
+    const selectedAnswer = selectedChoice.dataset["number"];
 
     let classToApply = 'incorrect';
-      if(selectedChoice.innerText == currentQuestion.correct) {
+      if(selectedAnswer == currentQuestion.answer) {
         classToApply = 'correct';
       }
-    if (classToApply === 'correct') {
-      incrementScore(Correct_Bonus)
-    }
+      if (classToApply === 'correct') {
+        incrementScore(Correct_Bonus)
+      }
+      console.log(currentQuestion)
+      if (selectedAnswer != currentQuestion.answer) {
+        if (currentQuestion.answer === 1 ){
+          alert('The correct answer is ' + currentQuestion.choice1)
+        }
+        else if (currentQuestion.answer === 2 ) {
+          alert('The correct answer is ' + currentQuestion.choice2)
+        }
+        else if (currentQuestion.answer === 3 ){
+          alert('The correct answer is ' + currentQuestion.choice3)
+        }
+        else
+        alert('The correct answer is ' + currentQuestion.choice)
+      }
       selectedChoice.parentElement.classList.add(classToApply)
 
     setTimeout (() => {
